@@ -17,14 +17,14 @@ namespace webrtc {
 
 class VoiceEngine;
 
-}  // namespace webrtc
+} // namespace webrtc
 
 namespace webrtc_examples {
 
 void SetVoeDeviceObjects(JavaVM* vm);
 void ClearVoeDeviceObjects();
 
-}  // namespace webrtc_examples
+} // namespace webrtc_examples
 
 webrtc::VoiceEngine* GetVoiceEngine(JNIEnv* jni, jobject j_voe);
 

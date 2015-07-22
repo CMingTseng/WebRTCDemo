@@ -47,8 +47,7 @@
 
 // JNIEnv-helper methods that CHECK success: no Java exception thrown and found
 // object/class/method/field is non-null.
-jmethodID GetMethodID(JNIEnv* jni, jclass c, const std::string& name,
-                      const char* signature);
+jmethodID GetMethodID(JNIEnv* jni, jclass c, const std::string& name, const char* signature);
 
 // Return a |jlong| that will automatically convert back to |ptr| when assigned
 // to a |uint64|
@@ -62,18 +61,18 @@ std::string JavaToStdString(JNIEnv* jni, const jstring& j_string);
 // stack.  Consequently, we only look up classes once in JNI_OnLoad.
 // http://developer.android.com/training/articles/perf-jni.html#faq_FindClass
 class ClassReferenceHolder {
- public:
-  ClassReferenceHolder(JNIEnv* jni, const char** classes, int size);
-  ~ClassReferenceHolder();
+public:
+    ClassReferenceHolder(JNIEnv* jni, const char** classes, int size);
+    ~ClassReferenceHolder();
 
-  void FreeReferences(JNIEnv* jni);
+    void FreeReferences(JNIEnv* jni);
 
-  jclass GetClass(const std::string& name);
+    jclass GetClass(const std::string& name);
 
- private:
-  void LoadClass(JNIEnv* jni, const std::string& name);
+private:
+    void LoadClass(JNIEnv* jni, const std::string& name);
 
-  std::map<std::string, jclass> classes_;
+    std::map<std::string, jclass> classes_;
 };
 
 #endif  // WEBRTC_EXAMPLES_ANDROID_MEDIA_DEMO_JNI_JNI_HELPERS_H_

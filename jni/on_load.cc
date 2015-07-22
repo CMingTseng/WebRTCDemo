@@ -24,25 +24,18 @@
 static JavaVM* g_vm = NULL;
 
 extern "C" jint JNIEXPORT JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
-  // Only called once.
-  CHECK(!g_vm, "OnLoad called more than once");
-  g_vm = vm;
-  return JNI_VERSION_1_4;
+    // Only called once.
+    CHECK(!g_vm, "OnLoad called more than once");
+    g_vm = vm;
+    return JNI_VERSION_1_4;
 }
 
-JOWW(void, NativeWebRtcContextRegistry_register)(
-    JNIEnv* jni,
-    jclass,
-    jobject context) {
-  webrtc_examples::SetVoeDeviceObjects(g_vm);
-  CHECK(webrtc::VoiceEngine::SetAndroidObjects(g_vm, context) == 0,
-        "Failed to register android objects to voice engine");
+JOWW(void, NativeWebRtcContextRegistry_register)(JNIEnv* jni, jclass, jobject context) {
+    webrtc_examples::SetVoeDeviceObjects(g_vm);
+    CHECK(webrtc::VoiceEngine::SetAndroidObjects(g_vm, context) == 0, "Failed to register android objects to voice engine");
 }
 
-JOWW(void, NativeWebRtcContextRegistry_unRegister)(
-    JNIEnv* jni,
-    jclass) {
-  CHECK(webrtc::VoiceEngine::SetAndroidObjects(NULL, NULL) == 0,
-        "Failed to unregister android objects from voice engine");
-  webrtc_examples::ClearVoeDeviceObjects();
+JOWW(void, NativeWebRtcContextRegistry_unRegister)(JNIEnv* jni, jclass) {
+    CHECK(webrtc::VoiceEngine::SetAndroidObjects(NULL, NULL) == 0, "Failed to unregister android objects from voice engine");
+    webrtc_examples::ClearVoeDeviceObjects();
 }
